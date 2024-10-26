@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 import { CartContext } from '../Context/CartContext';
 
 export default function ProductCard({ product }) {
-  const { addItem } = useContext(CartContext);
+  const { addItem, removeItem } = useContext(CartContext);
 
   const handleAddToCart = () => {
     addItem(product); // Añade el producto al carrito
+  };
+
+  const handleRemoveFromCart = () => {
+    removeItem(product.id); // Elimina uno del producto en el carrito
   };
 
   return (
@@ -16,15 +20,24 @@ export default function ProductCard({ product }) {
       <p>$ {product.price}</p>
       <div className="d-flex justify-content-between">
         <button type="button" className="btn btn-outline-primary mx-2">
-          <Link to={`/item/${product.id}`}>Details</Link>
+          <Link to={`/item/${product.id}`}>Detalles</Link>
         </button>
-        <button
-          type="button"
-          className="btn btn-outline-primary mx-2"
-          onClick={handleAddToCart}
-        >
-          Comprar
-        </button>
+        <div>
+          <button
+            type="button"
+            className="btn btn-outline-primary mx-2"
+            onClick={handleAddToCart}
+          >
+            +
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-danger mx-2"
+            onClick={handleRemoveFromCart}
+          >
+            -
+          </button>
+        </div>
       </div>
     </article>
   );

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
 export const CartContext = createContext();
 
@@ -7,30 +7,39 @@ export const CartProvider = ({ children }) => {
 
   const addItem = (item) => {
     setCart((prev) => {
-      const existingItem = prev.find((cartItem) => cartItem.id === item.id);
+      const existingItem = prev.find((prod) => prod.id === item.id);
       if (existingItem) {
-        // Si el producto ya está en el carrito, aumentar la cantidad
-        return prev.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
+        return prev.map((prod) =>
+          prod.id === item.id
+            ? { ...prod, quantity: prod.quantity + 1 }
+            : prod
         );
       }
-      // Si no está, agregar el producto con cantidad 1
       return [...prev, { ...item, quantity: 1 }];
     });
   };
 
-  const clearCart = () => setCart([]); // Vaciar el carrito
-
-  const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0); // Total de artículos en el carrito
-
-  const totalAmount = () => {
-    return cart.reduce((acc, item) => acc + item.price * item.quantity, 0); // Sumar el total
+  const removeItem = (id) => {
+    setCart((prev) => {
+      const existingItem = prev.find((prod) => prod.id === id);
+      if (existingItem) {
+        if (existingItem.quantity > 1) {
+          return prev.map((prod) =>
+            prod.id === id
+              ? { ...prod, quantity: prod.quantity - 1 }
+              : prod
+          );
+        }
+        return prev.filter((prod) => prod.id !== id);
+      }
+      return prev;
+    });
   };
 
+  const totalQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
-    <CartContext.Provider value={{ cart, addItem, clearCart, totalQuantity, totalAmount }}>
+    <CartContext.Provider value={{ cart, addItem, removeItem, totalQuantity }}>
       {children}
     </CartContext.Provider>
   );

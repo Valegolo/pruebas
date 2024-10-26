@@ -1,14 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
-import { db } from '../../firebase/firebase'; // Asegúrate de que la ruta sea correcta
+import { db } from '../../firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import { CartContext } from '../../Context/CartContext'; // Asegúrate de la ruta correcta
+import { CartContext } from '../../Context/CartContext';
 
 export default function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(false);
   const { id } = useParams();
-  const { addItem } = useContext(CartContext); // Asegúrate de que estás accediendo correctamente
+  const { addItem, removeItem } = useContext(CartContext);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -32,6 +32,12 @@ export default function ProductDetail() {
     }
   };
 
+  const handleRemoveFromCart = () => {
+    if (product) {
+      removeItem(product.id);
+    }
+  };
+
   if (error) {
     return <p style={{ color: 'red' }}>Advertencia: El producto no existe.</p>;
   }
@@ -52,7 +58,14 @@ export default function ProductDetail() {
         className="btn btn-outline-primary mx-2 btn-lg" 
         onClick={handleAddToCart}
       >
-        Comprar
+        Agregar al Carrito
+      </button>
+      <button 
+        type="button" 
+        className="btn btn-outline-danger mx-2 btn-lg" 
+        onClick={handleRemoveFromCart}
+      >
+        Eliminar del Carrito
       </button>
     </div>
   );

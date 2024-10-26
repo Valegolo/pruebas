@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { CartContext } from '../Context/CartContext';
 
 export default function CartView() {
-  const { cart, clearCart, totalAmount } = useContext(CartContext);
+  const { cart, clearCart, totalQuantity } = useContext(CartContext);
 
   // Verifica si hay elementos en el carrito
   if (cart.length === 0) {
@@ -23,7 +23,7 @@ export default function CartView() {
           </li>
         ))}
       </ul>
-      <h3>Total: ${totalAmount()}</h3>
+      <h3>Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0)}</h3>
       <button onClick={clearCart} className="btn btn-danger">Vaciar Carrito</button>
       <button className="btn btn-success" style={{ marginLeft: '10px' }}>Proceder a la Compra</button>
     </div>
