@@ -10,6 +10,7 @@ import ProductView from './Views/ProductView/ProductView';
 import { CartProvider } from './Context/CartContext';
 import Item from './components/Item'
 import { ProductsProvider } from './Context/ProductsData';
+import CartView from './Views/CartView';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route exact path='/Home' element={<HomeView />} /> 
         <Route exact path='/category/:categoryId' element={<SkincareView />} />
         <Route exact path='/:category/:id' element={<ProductView />} />
+        <Route path="/cart" element={<CartView />} />
       </Routes>
       </CartProvider>
       </ProductsProvider>

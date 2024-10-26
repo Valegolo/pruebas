@@ -2,42 +2,42 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import { db } from '../../firebase/firebase'; // Asegúrate de que la ruta sea correcta
 import { doc, getDoc } from 'firebase/firestore';
-import { CartContext } from '../../Context/CartContext'; // Ruta correcta del contexto del carrito
+import { CartContext } from '../../Context/CartContext'; // Asegúrate de la ruta correcta
 
 export default function ProductDetail() {
-  const [product, setProduct] = useState(null); // Estado para el producto
-  const [error, setError] = useState(false); // Estado para manejar error
+  const [product, setProduct] = useState(null);
+  const [error, setError] = useState(false);
   const { id } = useParams();
-  const [, , addItem] = useContext(CartContext); // Obtiene la función addItem desde el contexto
+  const { addItem } = useContext(CartContext); // Asegúrate de que estás accediendo correctamente
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const productRef = doc(db, 'products', id); // Referencia al documento de Firestore
-      const productSnap = await getDoc(productRef); // Obtener el documento
-      
+      const productRef = doc(db, 'products', id);
+      const productSnap = await getDoc(productRef);
+
       if (productSnap.exists()) {
-        setProduct({ id: productSnap.id, ...productSnap.data() }); // Guardar el producto en el estado
-        setError(false); // No hay error
+        setProduct({ id: productSnap.id, ...productSnap.data() });
+        setError(false);
       } else {
-        setError(true); // Producto no existe, establece el error
+        setError(true);
       }
     };
 
     fetchProduct();
-  }, [id]); // Agregar id a las dependencias para que se ejecute cuando cambie
+  }, [id]);
 
   const handleAddToCart = () => {
     if (product) {
-      addItem(product); // Añade el producto al carrito
+      addItem(product);
     }
   };
 
   if (error) {
-    return <p style={{ color: 'red' }}>Advertencia: El producto no existe.</p>; // Mensaje de advertencia
+    return <p style={{ color: 'red' }}>Advertencia: El producto no existe.</p>;
   }
 
   if (!product) {
-    return <p>Cargando...</p>; // Manejo de estado de carga
+    return <p>Cargando...</p>;
   }
 
   return (
@@ -45,15 +45,15 @@ export default function ProductDetail() {
       <h2><strong>Detalles del Producto</strong></h2>
       <h5 style={{ padding: 40 }}>{product.title} - {product.category}</h5>
       <img src={product.image} alt={product.title} />
-      <p style={{ padding: 40 }}>Caracteristicas: {product.description}</p>
-      <p> $ {product.price}</p>
+      <p style={{ padding: 40 }}>Características: {product.description}</p>
+      <p>$ {product.price}</p>
       <button 
-  type="button" 
-  className="btn btn-outline-primary mx-2 btn-lg" 
-  onClick={handleAddToCart}
->
-  Comprar
-</button>
+        type="button" 
+        className="btn btn-outline-primary mx-2 btn-lg" 
+        onClick={handleAddToCart}
+      >
+        Comprar
+      </button>
     </div>
   );
 }
