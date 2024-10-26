@@ -7,10 +7,15 @@ import SkincareView from './views/SkincareView'; // Corrige la mayúscula
 import MaquillajeView from './views/MaquillajeView'; // Corrige la mayúscula
 import CabelloView from './views/CabelloView'; // Corrige la mayúscula
 import ProductView from './Views/ProductView/ProductView'; 
+import { CartProvider } from './Context/CartContext';
+import Item from './components/Item'
+import { ProductsProvider } from './Context/ProductsData';
 
 function App() {
   return (
     <BrowserRouter>
+    <ProductsProvider>
+    <CartProvider>
       <NavBartest />
       <Routes>
         <Route exact path='/' element={<HomeView />} />
@@ -18,6 +23,8 @@ function App() {
         <Route exact path='/category/:categoryId' element={<SkincareView />} />
         <Route exact path='/:category/:id' element={<ProductView />} />
       </Routes>
+      </CartProvider>
+      </ProductsProvider>
     </BrowserRouter>
   );
 }

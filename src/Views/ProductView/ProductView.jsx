@@ -1,12 +1,14 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { db } from '../../firebase/firebase'; // Asegúrate de que la ruta sea correcta
 import { doc, getDoc } from 'firebase/firestore';
+import { CartContext } from '../../Context/CartContext'; // Ruta correcta del contexto del carrito
 
-export default function ProductView() {
+export default function ProductDetail() {
   const [product, setProduct] = useState(null); // Estado para el producto
   const [error, setError] = useState(false); // Estado para manejar error
   const { id } = useParams();
+  const [, , addItem] = useContext(CartContext); // Obtiene la función addItem desde el contexto
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -24,6 +26,12 @@ export default function ProductView() {
     fetchProduct();
   }, [id]); // Agregar id a las dependencias para que se ejecute cuando cambie
 
+  const handleAddToCart = () => {
+    if (product) {
+      addItem(product); // Añade el producto al carrito
+    }
+  };
+
   if (error) {
     return <p style={{ color: 'red' }}>Advertencia: El producto no existe.</p>; // Mensaje de advertencia
   }
@@ -39,6 +47,13 @@ export default function ProductView() {
       <img src={product.image} alt={product.title} />
       <p style={{ padding: 40 }}>Caracteristicas: {product.description}</p>
       <p> $ {product.price}</p>
+      <button 
+  type="button" 
+  className="btn btn-outline-primary mx-2 btn-lg" 
+  onClick={handleAddToCart}
+>
+  Comprar
+</button>
     </div>
   );
 }
