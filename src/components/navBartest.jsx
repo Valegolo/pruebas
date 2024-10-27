@@ -1,4 +1,4 @@
-import HomeView from '../views/Homeview';
+import HomeView from '../Views/HomeView';
 import CartWidget from './CartWidget';
 import {Link} from 'react-router-dom';
 

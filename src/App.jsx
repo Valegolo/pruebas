@@ -1,14 +1,10 @@
 import './App.css';
-import ItemListContainer from './components/ItemList';
 import NavBartest from './components/navBartest';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomeView from './views/Homeview';
+import HomeView from './Views/HomeView';
 import SkincareView from './views/SkincareView'; 
-import MaquillajeView from './views/MaquillajeView'; 
-import CabelloView from './views/CabelloView';
 import ProductView from './Views/ProductView/ProductView'; 
 import { CartProvider } from './Context/CartContext';
-import Item from './components/Item'
 import { ProductsProvider } from './Context/ProductsData';
 import CartView from './Views/CartView';
 import Checkout from './components/checkout';
