@@ -8,7 +8,7 @@ export default function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(false);
   const { id } = useParams();
-  const { addItem, removeItem } = useContext(CartContext);
+  const { addItem, removeItem, cart } = useContext(CartContext);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -34,9 +34,17 @@ export default function ProductDetail() {
 
   const handleRemoveFromCart = () => {
     if (product) {
-      removeItem(product.id);
+      const existingProduct = cart.find((item) => item.id === product.id);
+      if (existingProduct && existingProduct.quantity > 1) {
+        removeItem(product.id);
+      } else if (existingProduct) {
+        removeItem(product.id);
+      }
     }
   };
+
+  const existingProduct = cart.find((item) => item.id === product?.id);
+  const quantityInCart = existingProduct ? existingProduct.quantity : 0;
 
   if (error) {
     return <p style={{ color: 'red' }}>Advertencia: El producto no existe.</p>;
@@ -53,20 +61,26 @@ export default function ProductDetail() {
       <img src={product.image} alt={product.title} />
       <p style={{ padding: 40 }}>Características: {product.description}</p>
       <p>$ {product.price}</p>
-      <button 
-        type="button" 
-        className="btn btn-outline-primary mx-2 btn-lg" 
-        onClick={handleAddToCart}
-      >
-        Agregar al Carrito
-      </button>
-      <button 
-        type="button" 
-        className="btn btn-outline-danger mx-2 btn-lg" 
-        onClick={handleRemoveFromCart}
-      >
-        Eliminar del Carrito
-      </button>
+      
+      {/* Botones para aumentar y disminuir la cantidad */}
+      <div className="d-flex flex-column align-items-center">
+        <div className="d-flex align-items-center">
+          <button 
+            className="btn btn-outline-danger mx-2" 
+            onClick={handleRemoveFromCart}
+            disabled={quantityInCart === 0}
+          >
+            -
+          </button>
+          <span>En Carrito: {quantityInCart}</span>
+          <button 
+            className="btn btn-outline-primary mx-2" 
+            onClick={handleAddToCart}
+          >
+            +
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

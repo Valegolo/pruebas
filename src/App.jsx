@@ -11,6 +11,7 @@ import { CartProvider } from './Context/CartContext';
 import Item from './components/Item'
 import { ProductsProvider } from './Context/ProductsData';
 import CartView from './Views/CartView';
+import Checkout from './components/checkout';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route exact path='/category/:categoryId' element={<SkincareView />} />
         <Route exact path='/:category/:id' element={<ProductView />} />
         <Route path="/cart" element={<CartView />} />
+        <Route exact path="/checkout" element={<Checkout/>} />
       </Routes>
       </CartProvider>
       </ProductsProvider>

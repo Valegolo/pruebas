@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../Context/CartContext';
+import { Link } from 'react-router-dom';
 
 export default function CartView() {
   const { cart, clearCart, increaseQuantity, decreaseQuantity } = useContext(CartContext);
 
-  // Verifica si hay elementos en el carrito
+  
   if (cart.length === 0) {
     return <p>El carrito está vacío.</p>;
   }
@@ -41,7 +42,8 @@ export default function CartView() {
       </ul>
       <h3>Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0)}</h3>
       <button onClick={clearCart} className="btn btn-danger">Vaciar Carrito</button>
-      <button className="btn btn-success" style={{ marginLeft: '10px' }}>Proceder a la Compra</button>
+      <Link to="/Checkout">Proceder a la Compra</Link>
+
     </div>
   );
 }
