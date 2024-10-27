@@ -12,7 +12,7 @@ import Footer from './Views/Footer';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter  basename="/React-60045">
     <ProductsProvider>
     <CartProvider>
       <NavBartest />
