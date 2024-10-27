@@ -3,6 +3,7 @@ import { CartContext } from '../Context/CartContext';
 import { createOrder, updateProductStock, getNextOrderNumber } from '../firebase/ProductsData';
 import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom'; // Importa el hook
 
 const Checkout = () => {
     const { cart, clearCart } = useContext(CartContext);
@@ -13,6 +14,8 @@ const Checkout = () => {
         phone: ''
     });
     const [orderId, setOrderId] = useState("");
+    const [orderSummary, setOrderSummary] = useState([]);
+    const navigate = useNavigate(); // Inicializa el hook
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -45,8 +48,8 @@ const Checkout = () => {
         };
 
         try {
-            const orderId = await createOrder(orderData);
-            setOrderId(orderId);
+            const newOrderId = await createOrder(orderData);
+            setOrderId(newOrderId); // Save the order ID
 
             // Update product stock
             await Promise.all(
@@ -56,13 +59,16 @@ const Checkout = () => {
                 })
             );
 
+            // Set order summary with cart details
+            setOrderSummary(cart);
+
             Swal.fire({
                 icon: 'success',
                 title: 'Order registered successfully!',
-                text: `Your order number is: ${orderId}`,
                 confirmButtonText: 'OK',
+            }).then(() => {
+                clearCart(); // Clear the cart after the alert is closed
             });
-            clearCart();
         } catch (error) {
             Swal.fire({
                 icon: 'error',
@@ -74,10 +80,38 @@ const Checkout = () => {
     };
 
     if (orderId) {
+        const total = orderSummary.reduce((sum, item) => sum + item.price * item.quantity, 0); // Calculate total
+
         return (
             <div className="container text-center">
                 <h1 className="mt-4">Thank you for your purchase!</h1>
                 <p>Your order number is: {orderId}</p>
+                <h2 className="mt-4">Order Summary</h2>
+                <div className="row">
+                    {orderSummary.length > 0 ? (
+                        orderSummary.map((item) => (
+                            <div className="col-md-4 mb-4" key={item.id}>
+                                <div className="card">
+                                    <img src={item.image} className="card-img-top" alt={item.name} />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{item.name}</h5>
+                                        <p className="card-text">Price: ${item.price}</p>
+                                        <p className="card-text">Quantity: {item.quantity}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No items in the order summary.</p>
+                    )}
+                </div>
+                <h3>Total: ${total}</h3> {/* Mostrar el total calculado */}
+                <button 
+                    className="btn btn-secondary mt-4"
+                    onClick={() => navigate('/')} // Redirigir al home
+                >
+                    Continue Shopping
+                </button>
             </div>
         );
     }
