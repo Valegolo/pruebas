@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import { ProductsContext } from '../Context/ProductsData';
-import ItemCard from './ProductCard';
 import ProductCard from './ProductCard';
 
 export default function Items() {

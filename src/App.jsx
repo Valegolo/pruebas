@@ -7,7 +7,7 @@ import ProductView from './Views/ProductView/ProductView';
 import { CartProvider } from './Context/CartContext';
 import { ProductsProvider } from './Context/ProductsData';
 import CartView from './Views/CartView';
-import Checkout from './components/checkout';
+import Checkout from './components/Checkout';
 import Footer from './Views/Footer';
 
 function App() {
