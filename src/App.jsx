@@ -2,7 +2,7 @@ import './App.css';
 import NavBartest from './components/navBartest';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomeView from './Views/HomeView';
-import SkincareView from './views/SkincareView'; 
+import SkincareView from './Views/SkincareView'; 
 import ProductView from './Views/ProductView/ProductView'; 
 import { CartProvider } from './Context/CartContext';
 import { ProductsProvider } from './Context/ProductsData';
