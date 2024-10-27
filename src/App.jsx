@@ -12,6 +12,7 @@ import Item from './components/Item'
 import { ProductsProvider } from './Context/ProductsData';
 import CartView from './Views/CartView';
 import Checkout from './components/checkout';
+import Footer from './Views/Footer';
 
 function App() {
   return (
@@ -21,12 +22,13 @@ function App() {
       <NavBartest />
       <Routes>
         <Route exact path='/' element={<HomeView />} />
-        <Route exact path='/Home' element={<HomeView />} /> 
+        <Route exact path='/Home' element={<HomeView />} />
         <Route exact path='/category/:categoryId' element={<SkincareView />} />
         <Route exact path='/:category/:id' element={<ProductView />} />
         <Route path="/cart" element={<CartView />} />
         <Route exact path="/checkout" element={<Checkout/>} />
       </Routes>
+      <Footer />
       </CartProvider>
       </ProductsProvider>
     </BrowserRouter>

@@ -5,7 +5,7 @@ import ProductsListHome from '../components/ProductListHome';
 export default function HomeView() {
   return (
     <>
-      <ItemListContainer greeting="Bienvenido a mi Tienda!" />
+      <ItemListContainer greeting="Bienvenido a GlowUp!" />
 
       <h2 className="text-center" style={{ marginTop: '20px' }}>
         <strong>Todos Nuestros Productos</strong>

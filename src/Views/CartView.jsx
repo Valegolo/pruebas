@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 export default function CartView() {
   const { cart, clearCart, increaseQuantity, decreaseQuantity } = useContext(CartContext);
 
-  
   if (cart.length === 0) {
     return <p>El carrito está vacío.</p>;
   }
@@ -34,16 +33,19 @@ export default function CartView() {
                 className="btn btn-outline-danger mx-1" 
                 onClick={() => decreaseQuantity(product.id)}
               >
-                -
+                - 
               </button>
             </div>
           </li>
         ))}
       </ul>
       <h3>Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0)}</h3>
-      <button onClick={clearCart} className="btn btn-danger">Vaciar Carrito</button>
-      <Link to="/Checkout">Proceder a la Compra</Link>
-
+      <button onClick={clearCart} className="btn btn-danger mb-2">Vaciar Carrito</button>
+      <div>
+      <Link to="/Checkout" className="btn btn-primary text-white" style={{ backgroundColor: 'blue', border: 'none', marginTop: '1rem' }}>
+        Proceder a la Compra
+      </Link>
+      </div>
     </div>
   );
 }

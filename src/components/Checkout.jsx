@@ -83,34 +83,34 @@ const Checkout = () => {
         const total = orderSummary.reduce((sum, item) => sum + item.price * item.quantity, 0); // Calculate total
 
         return (
-            <div className="container text-center">
-                <h1 className="mt-4">Thank you for your purchase!</h1>
-                <p>Your order number is: {orderId}</p>
-                <h2 className="mt-4">Order Summary</h2>
+            <div className="container text-center" >
+                <h1 className="mt-4">Gracias por tu compra!</h1>
+                <p>Tu numero de Orden es: {orderId}</p>
+                <h2 className="mt-4">Detalles de Compra</h2>
                 <div className="row">
                     {orderSummary.length > 0 ? (
                         orderSummary.map((item) => (
                             <div className="col-md-4 mb-4" key={item.id}>
-                                <div className="card">
+                                <div className="card"style={{ border: '2px solid teal', padding: 30 }}>
                                     <img src={item.image} className="card-img-top" alt={item.name} />
                                     <div className="card-body">
                                         <h5 className="card-title">{item.name}</h5>
-                                        <p className="card-text">Price: ${item.price}</p>
-                                        <p className="card-text">Quantity: {item.quantity}</p>
+                                        <p className="card-text">Valor: ${item.price}</p>
+                                        <p className="card-text">Cantidad: {item.quantity}</p>
                                     </div>
                                 </div>
                             </div>
                         ))
                     ) : (
-                        <p>No items in the order summary.</p>
+                        <p>No hay Items.</p>
                     )}
                 </div>
                 <h3>Total: ${total}</h3> {/* Mostrar el total calculado */}
                 <button 
-                    className="btn btn-secondary mt-4"
+                    className="btn btn-info mt-4"
                     onClick={() => navigate('/')} // Redirigir al home
                 >
-                    Continue Shopping
+                    Seguir Comprando 
                 </button>
             </div>
         );
@@ -121,7 +121,7 @@ const Checkout = () => {
             <h1 className="text-center">Checkout</h1>
             <form className="mt-4" onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label className="form-label">Name</label>
+                    <label className="form-label">Nombre</label>
                     <input
                         type="text"
                         name="name"
@@ -157,7 +157,7 @@ const Checkout = () => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label className="form-label">Phone</label>
+                    <label className="form-label">Celular</label>
                     <input
                         type="tel"
                         name="phone"
@@ -168,7 +168,7 @@ const Checkout = () => {
                         required
                     />
                 </div>
-                <button className="btn btn-primary" type="submit">Purchase</button>
+                <button className="btn btn-primary" type="submit">Comprar</button>
             </form>
         </div>
     );
