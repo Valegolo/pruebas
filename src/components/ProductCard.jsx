@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { CartContext } from '../Context/CartContext';
 
 export default function ProductCard({ product }) {
-  const { addItem, removeItem } = useContext(CartContext);
+  const { addItem, decreaseQuantity } = useContext(CartContext); // Cambia removeItem por decreaseQuantity
 
   const handleAddToCart = () => {
     addItem(product); // Añade el producto al carrito
   };
 
   const handleRemoveFromCart = () => {
-    removeItem(product.id); // Elimina uno del producto en el carrito
+    decreaseQuantity(product.id); // Cambiar a decreaseQuantity
   };
 
   return (

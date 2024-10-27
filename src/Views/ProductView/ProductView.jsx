@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'; 
 import { useEffect, useState, useContext } from 'react';
 import { db } from '../../firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
@@ -8,7 +8,7 @@ export default function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(false);
   const { id } = useParams();
-  const { addItem, removeItem, cart } = useContext(CartContext);
+  const { addItem, decreaseQuantity, cart } = useContext(CartContext);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -34,12 +34,7 @@ export default function ProductDetail() {
 
   const handleRemoveFromCart = () => {
     if (product) {
-      const existingProduct = cart.find((item) => item.id === product.id);
-      if (existingProduct && existingProduct.quantity > 1) {
-        removeItem(product.id);
-      } else if (existingProduct) {
-        removeItem(product.id);
-      }
+      decreaseQuantity(product.id); // Cambiar a decreaseQuantity
     }
   };
 
