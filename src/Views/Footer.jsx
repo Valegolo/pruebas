@@ -1,7 +1,7 @@
-// Footer.jsx
+
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom'; // Asegúrate de importar Link
+import { Link } from 'react-router-dom'; 
 
 const Footer = () => {
   return (
@@ -13,7 +13,7 @@ const Footer = () => {
               <img
                 src="https://cdn-icons-png.flaticon.com/512/4483/4483015.png"
                 alt="Logo"
-                style={{ width: '70px' }} // Ajusta el tamaño según sea necesario
+                style={{ width: '70px' }} 
               />
             </Link>
           </Col>

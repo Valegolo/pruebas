@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, getDoc, } from 'firebase/firestore';
 
@@ -11,24 +10,24 @@ const firebaseConfig = {
   appId: "1:555832899076:web:82d0d24aef99d19b91e751"
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Función para obtener un producto individual
+
 export async function getSingleProduct(id) {
   const documentRef = doc(db, 'products', id);
   try {
     const snapshot = await getDoc(documentRef);
     if (snapshot.exists()) {
-      return { id: snapshot.id, ...snapshot.data() }; // Devuelve el producto con su ID
+      return { id: snapshot.id, ...snapshot.data() }; 
     } else {
       console.error("No such document!");
-      return null; // Devuelve null si no existe el documento
+      return null; 
     }
   } catch (error) {
     console.error("Error al obtener el documento:", error);
-    return null; // Devuelve null en caso de error
+    return null; 
   }
 }
 export async function sendOrder(order){
@@ -41,4 +40,4 @@ export async function sendOrder(order){
     console.log ('Error al agregar documento' + error);
   }
 }
-export { db }; // Exporta la base de datos si se necesita en otros archivos
+export { db }; 

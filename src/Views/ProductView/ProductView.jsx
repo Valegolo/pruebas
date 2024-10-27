@@ -57,7 +57,7 @@ export default function ProductDetail() {
       <p style={{ padding: 40 }}>Características: {product.description}</p>
       <p>$ {product.price}</p>
       
-      {/* Botones para aumentar y disminuir la cantidad */}
+      {}
       <div className="d-flex flex-column align-items-center">
         <div className="d-flex align-items-center">
           <button 

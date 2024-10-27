@@ -8,11 +8,11 @@ const QuantitySelector = ({ onAdd, initialQuantity = 1 }) => {
   };
 
   const handleDecrease = () => {
-    setQuantity((prev) => (prev > 1 ? prev - 1 : 1)); // Evita que la cantidad sea menor que 1
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1)); 
   };
 
   const handleAddToCart = () => {
-    onAdd(quantity); // Llama a la función onAdd con la cantidad actual
+    onAdd(quantity); 
   };
 
   return (

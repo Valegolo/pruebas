@@ -3,7 +3,7 @@ import { CartContext } from '../Context/CartContext';
 import { createOrder, updateProductStock, getNextOrderNumber } from '../firebase/ProductsData';
 import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom'; // Importa el hook
+import { useNavigate } from 'react-router-dom'; 
 
 const Checkout = () => {
     const { cart, clearCart } = useContext(CartContext);
@@ -15,7 +15,7 @@ const Checkout = () => {
     });
     const [orderId, setOrderId] = useState("");
     const [orderSummary, setOrderSummary] = useState([]);
-    const navigate = useNavigate(); // Inicializa el hook
+    const navigate = useNavigate(); 
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -49,17 +49,17 @@ const Checkout = () => {
 
         try {
             const newOrderId = await createOrder(orderData);
-            setOrderId(newOrderId); // Save the order ID
+            setOrderId(newOrderId); 
 
-            // Update product stock
+            
             await Promise.all(
                 cart.map(async (item) => {
-                    const newStock = item.stock - item.quantity; // Assuming `stock` is available in the item
+                    const newStock = item.stock - item.quantity; 
                     await updateProductStock(item.id, newStock);
                 })
             );
 
-            // Set order summary with cart details
+           
             setOrderSummary(cart);
 
             Swal.fire({
@@ -67,7 +67,7 @@ const Checkout = () => {
                 title: 'Order registered successfully!',
                 confirmButtonText: 'OK',
             }).then(() => {
-                clearCart(); // Clear the cart after the alert is closed
+                clearCart(); 
             });
         } catch (error) {
             Swal.fire({
@@ -80,7 +80,7 @@ const Checkout = () => {
     };
 
     if (orderId) {
-        const total = orderSummary.reduce((sum, item) => sum + item.price * item.quantity, 0); // Calculate total
+        const total = orderSummary.reduce((sum, item) => sum + item.price * item.quantity, 0); 
 
         return (
             <div className="container text-center" >
@@ -91,7 +91,7 @@ const Checkout = () => {
                     {orderSummary.length > 0 ? (
                         orderSummary.map((item) => (
                             <div className="col-md-4 mb-4" key={item.id}>
-                                <div className="card"style={{ border: '2px solid teal', padding: 30 }}>
+                                <div className="card">
                                     <img src={item.image} className="card-img-top" alt={item.name} />
                                     <div className="card-body">
                                         <h5 className="card-title">{item.name}</h5>
@@ -105,10 +105,10 @@ const Checkout = () => {
                         <p>No hay Items.</p>
                     )}
                 </div>
-                <h3>Total: ${total}</h3> {/* Mostrar el total calculado */}
+                <h3>Total: ${total}</h3> {}
                 <button 
                     className="btn btn-info mt-4"
-                    onClick={() => navigate('/')} // Redirigir al home
+                    onClick={() => navigate('/')} 
                 >
                     Seguir Comprando 
                 </button>
